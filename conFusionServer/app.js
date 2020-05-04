@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
-var FileStore = require('session-file-store')(session); 
+var FileStore = require('session-file-store')(session);
 var passport = require('passport');
 var authenticate = require('./authenticate');
 var config = require('./config');
@@ -16,6 +16,7 @@ const dishRouter = require('./routes/dishRouter');
 const promotionRouter = require('./routes/promoRouter');
 const leaderRouter = require('./routes/leaderRouter');
 const uploadRouter = require('./routes/uploadRouter');
+const favoriteRouter = require('./routes/favoriteRouter');
 
 
 const mongoose = require('mongoose');
@@ -23,19 +24,19 @@ const mongoose = require('mongoose');
 const Dishes = require('./models/dishes');
 
 const url = config.mongoUrl;
-const connect = mongoose.connect(url); 
+const connect = mongoose.connect(url);
 
 connect.then((db) => {
   console.log('Connected correctly to the server');
-},(err) => { console.log(err); });
+}, (err) => { console.log(err); });
 
 var app = express();
 
 app.all('*', (req, res, next) => {
-  if(req.secure){
+  if (req.secure) {
     return next();
   }
-  else{
+  else {
     res.redirect(307, 'https://' + req.hostname + ':' + app.get('secPort') + req.url);
   }
 });
@@ -62,14 +63,15 @@ app.use('/dishes', dishRouter);
 app.use('/promotions', promotionRouter);
 app.use('/leaders', leaderRouter);
 app.use('/imageUpload', uploadRouter);
+app.use('/favorites', favoriteRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

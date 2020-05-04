@@ -15,29 +15,29 @@ const promotionSchema = new Schema({
     image: {
         type: String,
         required: true
-    }, 
+    },
     label: {
         type: String,
         deafault: ''
     },
-    price : {
+    price: {
         type: Currency,
-        required : true,
-        min : 0
+        required: true,
+        min: 0
     },
     description: {
         type: String,
         required: true
-    },   
-    featured : {
+    },
+    featured: {
         type: Boolean,
-        default : false
+        default: false
     }
-},{
+}, {
     timestamps: true
 });
 
 
-var Promotions = mongoose.model('Promotion', promotionSchema); 
+var Promotions = mongoose.model('Promotion', promotionSchema);
 
 module.exports = Promotions;

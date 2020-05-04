@@ -11,11 +11,11 @@ const leaderSchema = new Schema({
     image: {
         type: String,
         required: true
-    }, 
+    },
     designation: {
         type: String,
         deafault: ''
-    }, 
+    },
     abbr: {
         type: String,
         deafault: ''
@@ -23,16 +23,16 @@ const leaderSchema = new Schema({
     description: {
         type: String,
         required: true
-    },   
-    featured : {
+    },
+    featured: {
         type: Boolean,
-        default : false
+        default: false
     }
-},{
+}, {
     timestamps: true
 });
 
 
-var Leaders = mongoose.model('Leader', leaderSchema); 
+var Leaders = mongoose.model('Leader', leaderSchema);
 
 module.exports = Leaders;
